@@ -36,6 +36,7 @@ const fs_1 = __importDefault(require("fs"));
 const cron_parser_1 = __importDefault(require("cron-parser"));
 const util_1 = require("../config/util");
 const p_queue_1 = __importDefault(require("p-queue"));
+const util_2 = require("util");
 let CronService = class CronService {
     constructor(logger) {
         this.logger = logger;
@@ -179,7 +180,7 @@ let CronService = class CronService {
     }
     async killTask(name) {
         let taskCommond = `ps -ef | grep "${name}" | grep -v grep | awk '{print $1}'`;
-        const execAsync = promisify(child_process_1.exec);
+        const execAsync = util_2.promisify(child_process_1.exec);
         try {
             let pid = (await execAsync(taskCommond)).stdout;
             if (pid) {
