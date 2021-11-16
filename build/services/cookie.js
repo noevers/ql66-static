@@ -146,8 +146,8 @@ let CookieService = class CookieService {
             nickname });
     }
     getJdInfo(cookie) {
-        return node_fetch_1.default(`https://me-api.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder&channel=4&isHomewhite=0&sceneval=2&_=${Date.now()}&sceneval=2&g_login_type=1&g_ty=ls`, {
-            method: 'get',
+        return node_fetch_1.default(`https://wq.jd.com/user_new/info/GetJDUserInfoUnion?sceneval=2`, {
+            method: 'post',
             headers: {
                 Accept: '*/*',
                 'Accept-Encoding': 'gzip, deflate, br',
@@ -161,13 +161,13 @@ let CookieService = class CookieService {
         })
             .then((x) => x.json())
             .then((x) => {
-            if (x.retcode === '0' && x.data && x.data.userInfo) {
+            if (x.retcode === '0' && x.data && x.data.hasOwnProperty("userInfo")) {
                 return {
                     nickname: x.data.userInfo.baseInfo.nickname,
                     status: cookie_1.CookieStatus.normal,
                 };
             }
-            else if (x.retcode === 13) {
+            else if (x.retcode === 1001) {
                 return { status: cookie_1.CookieStatus.invalid, nickname: '-' };
             }
             return { status: cookie_1.CookieStatus.abnormal, nickname: '-' };
