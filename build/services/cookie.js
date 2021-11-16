@@ -161,7 +161,7 @@ let CookieService = class CookieService {
         })
             .then((x) => x.json())
             .then((x) => {
-            if (x.retcode === '0' && x.data && x.data.hasOwnProperty("userInfo")) {
+            if (x.retcode === 0 && x.data && x.data.hasOwnProperty("userInfo")) {
                 return {
                     nickname: x.data.userInfo.baseInfo.nickname,
                     status: cookie_1.CookieStatus.normal,
